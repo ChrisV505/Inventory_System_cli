@@ -1,0 +1,4 @@
+2025-10-05T21:57:09.667-07:00  INFO 15516 --- [InventorySystem] [main] c.c.I.InventorySystemApplication         : Starting InventorySystemApplication using Java 21.0.8 with PID 15516 (/home/chris/Git Coding Projects/InventorySystem/target/classes started by chris in /home/chris/Git Coding Projects/InventorySystem)
+2025-10-05T21:57:09.668-07:00  INFO 15516 --- [InventorySystem] [main] c.c.I.InventorySystemApplication         : No active profile set, falling back to 1 default profile: "default"
+2025-10-05T21:57:09.941-07:00  WARN 15516 --- [InventorySystem] [main] org.jline                                : Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+2025-10-05T21:57:10.041-07:00  INFO 15516 --- [InventorySystem] [main] c.c.I.InventorySystemApplication         : Started InventorySystemApplication in 0.574 seconds (process running for 0.703)
