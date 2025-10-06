@@ -1,4 +1,52 @@
-2025-10-05T21:57:09.667-07:00  INFO 15516 --- [InventorySystem] [main] c.c.I.InventorySystemApplication         : Starting InventorySystemApplication using Java 21.0.8 with PID 15516 (/home/chris/Git Coding Projects/InventorySystem/target/classes started by chris in /home/chris/Git Coding Projects/InventorySystem)
-2025-10-05T21:57:09.668-07:00  INFO 15516 --- [InventorySystem] [main] c.c.I.InventorySystemApplication         : No active profile set, falling back to 1 default profile: "default"
-2025-10-05T21:57:09.941-07:00  WARN 15516 --- [InventorySystem] [main] org.jline                                : Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
-2025-10-05T21:57:10.041-07:00  INFO 15516 --- [InventorySystem] [main] c.c.I.InventorySystemApplication         : Started InventorySystemApplication in 0.574 seconds (process running for 0.703)
+2025-10-06T16:39:13.282-07:00  INFO 112302 --- [InventorySystem] [main] c.c.I.InventorySystemApplication         : Starting InventorySystemApplication using Java 21.0.8 with PID 112302 (/home/chris/Git Coding Projects/InventorySystem/target/classes started by chris in /home/chris/Git Coding Projects/InventorySystem)
+2025-10-06T16:39:13.284-07:00  INFO 112302 --- [InventorySystem] [main] c.c.I.InventorySystemApplication         : No active profile set, falling back to 1 default profile: "default"
+2025-10-06T16:39:13.474-07:00  INFO 112302 --- [InventorySystem] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-06T16:39:13.524-07:00  INFO 112302 --- [InventorySystem] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 1 JPA repository interface.
+2025-10-06T16:39:13.703-07:00  INFO 112302 --- [InventorySystem] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-06T16:39:13.719-07:00  INFO 112302 --- [InventorySystem] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
+2025-10-06T16:39:13.730-07:00  INFO 112302 --- [InventorySystem] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-06T16:39:13.829-07:00  INFO 112302 --- [InventorySystem] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-06T16:39:13.839-07:00  INFO 112302 --- [InventorySystem] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-06T16:39:13.980-07:00  INFO 112302 --- [InventorySystem] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@359ceb13
+2025-10-06T16:39:13.981-07:00  INFO 112302 --- [InventorySystem] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-06T16:39:14.005-07:00  INFO 112302 --- [InventorySystem] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.6
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-06T16:39:14.284-07:00  INFO 112302 --- [InventorySystem] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-06T16:39:14.304-07:00  INFO 112302 --- [InventorySystem] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-06T16:39:14.413-07:00  WARN 112302 --- [InventorySystem] [main] org.jline                                : Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+2025-10-06T16:39:14.532-07:00  INFO 112302 --- [InventorySystem] [main] c.c.I.InventorySystemApplication         : Started InventorySystemApplication in 1.467 seconds (process running for 1.612)
+2025-10-06T16:40:03.069-07:00  INFO 112302 --- [InventorySystem] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-06T16:40:03.070-07:00  INFO 112302 --- [InventorySystem] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-10-06T16:40:03.072-07:00  INFO 112302 --- [InventorySystem] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-10-06T16:40:09.416-07:00  INFO 112622 --- [InventorySystem] [main] c.c.I.InventorySystemApplication         : Starting InventorySystemApplication using Java 21.0.8 with PID 112622 (/home/chris/Git Coding Projects/InventorySystem/target/classes started by chris in /home/chris/Git Coding Projects/InventorySystem)
+2025-10-06T16:40:09.417-07:00  INFO 112622 --- [InventorySystem] [main] c.c.I.InventorySystemApplication         : No active profile set, falling back to 1 default profile: "default"
+2025-10-06T16:40:09.607-07:00  INFO 112622 --- [InventorySystem] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-06T16:40:09.657-07:00  INFO 112622 --- [InventorySystem] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 46 ms. Found 1 JPA repository interface.
+2025-10-06T16:40:09.823-07:00  INFO 112622 --- [InventorySystem] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-06T16:40:09.842-07:00  INFO 112622 --- [InventorySystem] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.29.Final
+2025-10-06T16:40:09.852-07:00  INFO 112622 --- [InventorySystem] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-10-06T16:40:09.955-07:00  INFO 112622 --- [InventorySystem] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-06T16:40:09.964-07:00  INFO 112622 --- [InventorySystem] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-10-06T16:40:10.117-07:00  INFO 112622 --- [InventorySystem] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7b3cbe6e
+2025-10-06T16:40:10.117-07:00  INFO 112622 --- [InventorySystem] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-10-06T16:40:10.144-07:00  INFO 112622 --- [InventorySystem] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.6
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-06T16:40:10.436-07:00  INFO 112622 --- [InventorySystem] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-06T16:40:10.452-07:00  INFO 112622 --- [InventorySystem] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-06T16:40:10.588-07:00  WARN 112622 --- [InventorySystem] [main] org.jline                                : Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+2025-10-06T16:40:10.698-07:00  INFO 112622 --- [InventorySystem] [main] c.c.I.InventorySystemApplication         : Started InventorySystemApplication in 1.494 seconds (process running for 1.628)
+2025-10-06T16:40:51.633-07:00  INFO 112622 --- [InventorySystem] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-06T16:40:51.634-07:00  INFO 112622 --- [InventorySystem] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-10-06T16:40:51.636-07:00  INFO 112622 --- [InventorySystem] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
