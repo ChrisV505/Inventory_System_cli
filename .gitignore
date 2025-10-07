@@ -34,3 +34,5 @@ build/
 ### hidden files ###
 .env
 
+### unwanted files ###
+.log
