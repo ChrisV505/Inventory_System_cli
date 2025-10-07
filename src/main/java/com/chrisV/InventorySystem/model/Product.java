@@ -1,9 +1,6 @@
 package com.chrisV.InventorySystem.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,6 +24,7 @@ public class Product {
     private BigDecimal price;
     private BigDecimal total;
     private String code;
+    @Column(unique = true)
     private List<Category> category;
 
     @Override

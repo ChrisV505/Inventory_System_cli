@@ -3,6 +3,7 @@ package com.chrisV.InventorySystem.service;
 import com.chrisV.InventorySystem.model.Category;
 import com.chrisV.InventorySystem.model.Product;
 import com.chrisV.InventorySystem.repo.ProductRepo;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.command.annotation.Command;
 import org.springframework.shell.command.annotation.Option;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 @Command(command = "product-cli")
@@ -19,18 +21,23 @@ public class ProductService {
     @Autowired
     private ProductRepo repo;
 
-    @Command(command = "list-products", description = "List all products in the inventory")
-    public List<Product> listProducts(@Option(required = false) String category) {
+    @Command(command = "list", description = "List all products in the inventory")
+    public List<Product> listProducts(@Option(required = false)
+                                          @UniqueElements  List<String> category) {
 
-        System.out.println(Arrays.toString(Category.values()));
+        if (category == null) return repo.findAll();
 
-        if(category != null) {
-            Category categoryEnum = Category.valueOf(category);
-            return repo.findByCategory(categoryEnum);
+        try{
+            List<Category> categoryList = category.stream()
+                    .map(Category::valueOf)
+                    .toList();
+            return repo.findAllByCategory(categoryList);
+
+        }catch(IllegalArgumentException e){
+            System.out.println("Invalid category. Available categories are: " + Arrays.toString(Category.values()));
+            return List.of();
         }
 
-
-        return repo.findAll();
     }
 
     @Command(command = "add", description = "Add a new product to the inventory")
@@ -61,4 +68,20 @@ public class ProductService {
         repo.save(product);
         return product;
     }
+
+    @Command(command = "delete", description = "Delete a product from the inventory")
+    public void deleteProduct() {
+        String temp = "test product";
+
+        Product product = repo.findByName(temp);
+        if (product != null) {
+            repo.delete(product);
+            System.out.println("Deleted product: " + product);
+
+
+        }
+
+
+    }
+
 }
