@@ -36,15 +36,39 @@ public class ProductService {
             System.out.println("Invalid category. Available categories are: " + Arrays.toString(Category.values()));
             return List.of();
         }
+    }
 
+    @Command(command = "update", description = "Update an existing product in the inventory")
+    public Product updateProduct(@Option(required = true) String name, Integer stock,
+                                 @Option Double price,
+                                 @Option String code,
+                                 @Option(arityMin = 0, arityMax = 3) @UniqueElements List<String> categories) {
+
+        Product existingProduct = repo.findByName(name);
+
+        if (existingProduct != null) {
+            if (stock != null) existingProduct.setStock(stock);
+            if (price != null) existingProduct.setPrice(BigDecimal.valueOf(price));
+            if (stock != null && price != null) existingProduct.setTotal(BigDecimal.valueOf(stock * price));
+            if (code != null) existingProduct.setCode(code);
+            if (categories != null) {
+                try {
+                    List<Category> category = CategoryMapper.mapToString(categories);
+                    existingProduct.setCategory(category);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Invalid category. Available categories are: " + Arrays.toString(Category.values()));
+                }
+            }
+            return repo.save(existingProduct);
+        }
+        return null;
     }
 
     @Command(command = "add", description = "Add a new product to the inventory")
     public Product addProduct(@Option (required = true) String name,
                               Integer stock, Double price,
-                              @Option(required = false)
-                                  String code,
-                              @Option(required = false, arityMin = 0, arityMax = 3) @UniqueElements  List<String> categories) {
+                              @Option String code,
+                              @Option(arityMin = 0, arityMax = 3) @UniqueElements  List<String> categories) {
 
         //initialize category in case user doesn't provide any
         List<Category> category = null;
@@ -70,18 +94,13 @@ public class ProductService {
     }
 
     @Command(command = "delete", description = "Delete a product from the inventory")
-        public void deleteProduct() {
-        String temp = "test product";
-
-        Product product = repo.findByName(temp);
+        public void deleteProduct(@Option(required = true) String name){
+        Product product = repo.findByName(name);
         if (product != null) {
             repo.delete(product);
             System.out.println("Deleted product: " + product);
-
-
+        } else {
+            System.out.println("Product with name " + name + " not found");
         }
-
-
     }
-
 }
