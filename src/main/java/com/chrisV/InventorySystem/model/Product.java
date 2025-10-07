@@ -28,4 +28,21 @@ public class Product {
     private BigDecimal total;
     private String code;
     private List<Category> category;
+
+    @Override
+    public String toString() {
+        return "\nProduct{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", stock=" + stock +
+                ", price=" + price +
+                ", total=" + total +
+                ", code='" + code + '\'' +
+                ", category=" + category +
+                '}';
+    }
+
+
+
+
 }
