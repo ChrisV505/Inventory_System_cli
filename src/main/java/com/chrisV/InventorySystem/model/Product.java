@@ -19,12 +19,13 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true)
     private String name;
     private Integer stock;
     private BigDecimal price;
     private BigDecimal total;
     private String code;
-    @Column(unique = true)
     private List<Category> category;
 
     @Override
