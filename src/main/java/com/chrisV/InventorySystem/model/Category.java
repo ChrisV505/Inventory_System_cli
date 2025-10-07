@@ -1,7 +1,7 @@
 package com.chrisV.InventorySystem.model;
 
 public enum Category {
-    Beberage,
+    Beverage,
     dye,
     HairCleaning,
 

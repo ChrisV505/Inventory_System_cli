@@ -5,13 +5,18 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class Product {
 
     @Id
@@ -19,8 +24,8 @@ public class Product {
     private Long id;
     private String name;
     private Integer stock;
-    private Double Price;
-    private Double Total;
+    private BigDecimal price;
+    private BigDecimal total;
     private String code;
-    private Category category;
+    private List<Category> category;
 }
