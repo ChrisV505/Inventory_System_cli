@@ -9,28 +9,10 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.table.*;
 import java.util.*;
 
-@Command(group = "Demo Commands")
-@ShellComponent
-public class TestingUI {
-
-
-//    public void PersonTableCommands() {
-//        // initialize random data once
-//        Random random = new Random();
-//        String[] names = {"Alice", "Bob", "Charlie", "Diana", "Ethan", "Fiona"};
-//        String[] cities = {"New York", "Chicago", "Miami", "Los Angeles", "Houston"};
-//
-//        for (int i = 0; i < 5; i++) {
-//            String name = names[random.nextInt(names.length)];
-//            int age = 18 + random.nextInt(40);
-//            String city = cities[random.nextInt(cities.length)];
-//            people.add(new Person(i + 1, name, age, city));
-//        }
-//    }
+public class TableUI {
 
     @Autowired
     private ProductRepo repo;
-
 
     public static String showTable(List<Product> products) {
         var fields = Product.class.getDeclaredFields();
@@ -64,24 +46,4 @@ public class TestingUI {
 
         return tableBuilder.build().render(350);
     }
-
-
-//    // Simple data class
-//    static class Person {
-//        private final int id;
-//        private final String name;
-//        private final int age;
-//        private final String city;
-//
-//        public Person(int id, String name, int age, String city) {
-//            this.id = id;
-//            this.name = name;
-//            this.age = age;
-//            this.city = city;
-//        }
-//        public int getId() { return id; }
-//        public String getName() { return name; }
-//        public int getAge() { return age; }
-//        public String getCity() { return city; }
-//    }
 }
