@@ -4,6 +4,7 @@ import com.chrisV.InventorySystem.mapper.CategoryMapper;
 import com.chrisV.InventorySystem.model.Category;
 import com.chrisV.InventorySystem.model.Product;
 import com.chrisV.InventorySystem.repo.ProductRepo;
+import com.chrisV.InventorySystem.ui.TestingUI;
 import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.command.annotation.Command;
@@ -16,25 +17,39 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Service
-@Command(command = "product-cli")
+@Command(group = "product-cli")
 public class ProductService {
 
     @Autowired
     private ProductRepo repo;
 
+
+
+//    @Command(command = "testing", description = "Testing command")
+//    public void testingCommand(@Option String name) {
+//        TestingUI testingUI = new TestingUI();
+//        testingUI.show();
+//    }
+
+
     @Command(command = "list", description = "List all products in the inventory")
-    public List<Product> listProducts(@Option(required = false)
+    public String listProducts(@Option(required = false)
                                           @UniqueElements  List<String> categories) {
 
-        if (categories == null) return repo.findAll();
+        if (categories == null) return TestingUI.showTable(repo.findAll()); // repo.findAll();
+
 
         try{
             List<Category> categoryList = CategoryMapper.mapToString(categories);
-            return repo.findAllByCategory(categoryList);
+            System.out.println(categoryList);
+
+            System.out.println(repo.findAllByCategory(categoryList));
+
+            return TestingUI.showTable(repo.findAllByCategory(categoryList));
 
         }catch(IllegalArgumentException e){
             System.out.println("Invalid category. Available categories are: " + Arrays.toString(Category.values()));
-            return List.of();
+            return List.of(String .valueOf(e)).toString();
         }
     }
 
