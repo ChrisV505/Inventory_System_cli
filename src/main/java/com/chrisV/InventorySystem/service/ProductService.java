@@ -7,6 +7,7 @@ import com.chrisV.InventorySystem.repo.ProductRepo;
 import com.chrisV.InventorySystem.ui.TableUI;
 import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.shell.command.annotation.Command;
 import org.springframework.shell.command.annotation.Option;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,21 @@ public class ProductService {
         }
     }
 
+    @Command(command = "usage-update", description = "Update stock of an existing product in the inventory")
+    public String updateStock(@Option(required = true) String name, @Option(required = true) Integer stock) {
+        Product existingProduct = repo.findByName(name);
+
+        if(stock < 0) return "Stock cannot be negative";
+        if(stock > existingProduct.getStock()) return "Stock to be reduced cannot be greater than existing stock";
+        existingProduct.setStock((existingProduct.getStock() - stock));
+
+        if(existingProduct.getPrice() != null){
+            existingProduct.setTotal(BigDecimal.valueOf(stock * existingProduct.getPrice().doubleValue()));
+        }
+        repo.save(existingProduct);
+        return "Updated stock for product: " + existingProduct.toString()   ;
+    }
+
     @Command(command = "update", description = "Update an existing product in the inventory")
     public Product updateProduct(@Option(required = true) String name, Integer stock,
                                  @Option Double price,
@@ -67,12 +83,17 @@ public class ProductService {
     @Command(command = "add", description = "Add a new product to the inventory")
     public Product addProduct(@Option (required = true) String name,
                               Integer stock, Double price,
-                              @Option String code,
-                              @Option(arityMin = 0, arityMax = 3) @UniqueElements  List<String> categories) {
+                              @Option(arityMin = 0, arityMax = 3) @UniqueElements  List<String> categories,
+                              @Option String code) {
 
         //initialize category in case user doesn't provide any
         List<Category> category = null;
 
+        System.out.println(code);
+
+        if(code == null) code = "nothing";
+
+        System.out.println(code);
         //convert list of string to list of enum
         try{
             category = CategoryMapper.mapToString(categories);
@@ -81,8 +102,8 @@ public class ProductService {
                     .stock(stock)
                     .price(BigDecimal.valueOf(price))
                     .total(BigDecimal.valueOf(stock * price))
-                    .code(code)
                     .category(category)
+                    .code(code)
                     .build();
 
             repo.save(product);
