@@ -37,16 +37,25 @@ public class ProductService {
         }
     }
 
-    @Command(command = "usage-update", description = "Update stock of an existing product in the inventory")
-    public String usageUpdate(@Option(required = true) String name, @Option(required = true) Integer stock) {
+    @Command(command = "use/add-stock", alias = "stock", description = "Update stock of an existing product in the inventory")
+    public String usageUpdate(@Option(required = true) String name,
+                              @Option(required = true) Integer stock,
+                              @Option(required = true) String action) {
+
         Product existingProduct = repo.findByName(name);
 
         if(stock < 0) return "Stock cannot be negative";
-        if(stock > existingProduct.getStock()) return "Stock to be reduced cannot be greater than existing stock";
-        existingProduct.setStock((existingProduct.getStock() - stock));
+
+        if(action.equals("use")) {
+            if(stock > existingProduct.getStock()) return "Stock to be reduced cannot be greater than existing stock";
+            existingProduct.setStock((existingProduct.getStock() - stock));
+
+        } else if(action.equals("add")) {
+            existingProduct.setStock((existingProduct.getStock() + stock));
+        }
 
         if(existingProduct.getPrice() != null){
-            existingProduct.setTotal(BigDecimal.valueOf(stock * existingProduct.getPrice().doubleValue()));
+            existingProduct.setTotal(BigDecimal.valueOf(existingProduct.getStock() * existingProduct.getPrice().doubleValue()));
         }
         repo.save(existingProduct);
         return "Updated stock for product: " + existingProduct;
@@ -56,7 +65,7 @@ public class ProductService {
     public Product updateProduct(@Option(required = true) String name, Integer stock,
                                  @Option Double price,
                                  @Option String code,
-                                 @Option(arityMin = 0, arityMax = 3) @UniqueElements List<String> categories) {
+                                 @Option(arityMax = 3) @UniqueElements List<String> categories) {
 
         Product existingProduct = repo.findByName(name);
 
