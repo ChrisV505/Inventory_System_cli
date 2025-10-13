@@ -40,7 +40,7 @@ public class StockAlertAspect {
     private final String MAIL_SUBJECT = "Stock Alert for Product %s";
 
     // Adjust the pointcut to match your command method
-    @Before("execution(* com.chrisV.InventorySystem.service.ProductService.usageUpdate(..)) && args(name,..)")
+    @After("execution(* com.chrisV.InventorySystem.service.ProductService.usageUpdate(..)) && args(name,..)")
     public void sendStockAlertIfNeeded(String name) {
         Product product = repo.findByName(name);
         //int currentStock = product.getStock();
