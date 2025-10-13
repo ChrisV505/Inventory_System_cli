@@ -7,7 +7,6 @@ import com.chrisV.InventorySystem.repo.ProductRepo;
 import com.chrisV.InventorySystem.ui.TableUI;
 import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.shell.command.annotation.Command;
 import org.springframework.shell.command.annotation.Option;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 @Command(group = "product-cli")
@@ -25,7 +23,7 @@ public class ProductService {
     private ProductRepo repo;
 
     @Command(command = "list", description = "List all products in the inventory")
-    public String listProducts(@Option(required = false) @UniqueElements  List<String> categories) {
+    public String listProducts(@Option @UniqueElements  List<String> categories) {
 
         if (categories == null) return TableUI.showTable(repo.findAll()); // repo.findAll();
 
@@ -40,7 +38,7 @@ public class ProductService {
     }
 
     @Command(command = "usage-update", description = "Update stock of an existing product in the inventory")
-    public String updateStock(@Option(required = true) String name, @Option(required = true) Integer stock) {
+    public String usageUpdate(@Option(required = true) String name, @Option(required = true) Integer stock) {
         Product existingProduct = repo.findByName(name);
 
         if(stock < 0) return "Stock cannot be negative";
@@ -51,7 +49,7 @@ public class ProductService {
             existingProduct.setTotal(BigDecimal.valueOf(stock * existingProduct.getPrice().doubleValue()));
         }
         repo.save(existingProduct);
-        return "Updated stock for product: " + existingProduct.toString()   ;
+        return "Updated stock for product: " + existingProduct;
     }
 
     @Command(command = "update", description = "Update an existing product in the inventory")
@@ -86,14 +84,9 @@ public class ProductService {
                               @Option(arityMin = 0, arityMax = 3) @UniqueElements  List<String> categories,
                               @Option String code) {
 
-        //initialize category in case user doesn't provide any
-        List<Category> category = null;
-
-        System.out.println(code);
-
+        List<Category> category;
         if(code == null) code = "nothing";
 
-        System.out.println(code);
         //convert list of string to list of enum
         try{
             category = CategoryMapper.mapToString(categories);

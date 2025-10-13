@@ -36,3 +36,6 @@ build/
 
 ### unwanted files ###
 *.log
+
+### Personal notes ###
+NOTES.md
