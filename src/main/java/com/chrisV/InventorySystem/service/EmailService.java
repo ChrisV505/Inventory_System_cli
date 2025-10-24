@@ -58,8 +58,4 @@ public class EmailService {
             return "Error while Sending Mail" + e.getMessage();
         }
     }
-
-
-
-
 }

@@ -4,6 +4,7 @@ import com.chrisV.InventorySystem.mapper.CategoryMapper;
 import com.chrisV.InventorySystem.model.Category;
 import com.chrisV.InventorySystem.model.Product;
 import com.chrisV.InventorySystem.repo.ProductRepo;
+import com.chrisV.InventorySystem.ui.OutputFormatter;
 import com.chrisV.InventorySystem.ui.TableUI;
 import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,18 +24,30 @@ public class ProductService {
     private ProductRepo repo;
 
     @Command(command = "list", description = "List all products in the inventory")
-    public String listProducts(@Option @UniqueElements  List<String> categories) {
+    public String listProducts(@Option @UniqueElements  List<String> categories,
+                                @Option(required = true) String format) {
 
-        if (categories == null) return TableUI.showTable(repo.findAll()); // repo.findAll();
-
-        try{
-            List<Category> categoryList = CategoryMapper.mapToString(categories);
-            return TableUI.showTable(repo.findAllByCategory(categoryList));
-
-        }catch(IllegalArgumentException e){
-            System.out.println("Invalid category. Available categories are: " + Arrays.toString(Category.values()));
-            return List.of(String .valueOf(e)).toString();
+        List<Product> products;
+        if(categories == null || categories.isEmpty()) {
+            products = repo.findAll();
+        } else {
+            try {
+                List<Category> categoryList = CategoryMapper.mapToString(categories);
+                products = repo.findAllByCategory(categoryList);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid category. Available categories are: " + Arrays.toString(Category.values()));
+                return List.of(String.valueOf(e)).toString();
+            }
         }
+
+        if(format == null) format = "table";
+
+        switch(format) {
+            case "table" -> {return OutputFormatter.toTable(products);}
+            case "json" -> {return OutputFormatter.toJson(products);}
+            case "xml" -> { return OutputFormatter.toXml(products);}
+        }
+        return "Invalid format. Available formats are: table, json, xml";
     }
 
     @Command(command = "use/add-stock", alias = "stock", description = "Update stock of an existing product in the inventory")
@@ -126,4 +139,5 @@ public class ProductService {
             System.out.println("Product with name " + name + " not found");
         }
     }
+
 }
