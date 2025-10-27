@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -27,6 +28,21 @@ public class Product {
     private BigDecimal total;
     private String code;
     private List<Category> category;
+
+    // Convenience constructor taking primitive/double and a single Category (useful in tests)
+    public Product(String name, int stock, double price, String code, Category singleCategory) {
+        this.name = name;
+        this.stock = stock;
+        this.price = BigDecimal.valueOf(price);
+        this.code = code;
+        if (singleCategory == null) {
+            this.category = new ArrayList<>();
+        } else {
+            this.category = List.of(singleCategory);
+        }
+    }
+
+
 
     @Override
     public String toString() {
