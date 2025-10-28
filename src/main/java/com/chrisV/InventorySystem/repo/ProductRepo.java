@@ -13,5 +13,5 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
     List<Product> findAllByCategory(List<Category> categoryNameList);
 
     Product findByName(String name);
-    void deleteByName(String name);
+    Product deleteByName(String name);
 }
