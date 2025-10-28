@@ -59,6 +59,59 @@ A Spring Boot command-line inventory management system leveraging [Spring Shell]
 
    With the application running, you can interactively manage your inventory via the Spring Shell interface.
 
+## Testing (H2 embedded)
+
+This project supports running tests using an embedded H2 database so you don't need a running PostgreSQL instance for test execution. Below are notes and examples to run and configure the test environment.
+
+- How tests are organized:
+    - Unit tests typically use slice tests (e.g., @DataJpaTest) or Mockito for service-level tests.
+    - Integration tests use @SpringBootTest and are configured to run against an in-memory H2 database to isolate them from your production PostgreSQL database.
+
+- Typical commands to run tests:
+    - Run all tests:
+      ```sh
+      mvn test
+      ```
+    - Run tests with the "test" profile (if you prefer a test profile):
+      ```sh
+      mvn -Dspring.profiles.active=test test
+      ```
+
+- Example test configuration (create `src/test/resources/application-test.properties` or `src/test/resources/application.properties` for tests):
+  ```properties
+  # Use H2 in-memory database for tests
+  spring.datasource.url=jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false
+  spring.datasource.driverClassName=org.h2.Driver
+  spring.datasource.username=sa
+  spring.datasource.password=
+  spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+  spring.jpa.hibernate.ddl-auto=create-drop
+  spring.h2.console.enabled=true
+  ```
+
+- Recommended annotations for tests that should use H2:
+    - For repository/JPA slice tests:
+      ```java
+      @DataJpaTest
+      @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+      public class ProductRepositoryTest { ... }
+      ```
+    - For full integration tests:
+      ```java
+      @SpringBootTest
+      @ActiveProfiles("test") // if you use application-test.properties
+      public class InventoryIntegrationTest { ... }
+      ```
+
+- Why use H2 for tests:
+    - Fast in-memory execution.
+    - Easier CI integration (no external DB dependency).
+    - Tests are isolated and can use create-drop schema handling to start clean each run.
+
+- Notes:
+    - The application still uses PostgreSQL in non-test environments (see main `application.properties`). H2 is only recommended for tests and local verification.
+    - If you have tests that rely on PostgreSQL-specific behavior (functions, extensions, or SQL), consider marking them as integration tests and running them against a PostgreSQL instance or a testcontainer setup.
+
 ## Technologies Used
 
 - **Spring Boot**: Application framework.

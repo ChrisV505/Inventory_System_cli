@@ -49,13 +49,6 @@ public class InventoryRepositoryIntegrationTest {
         productRepo.saveAndFlush(product);
 
         assertThat(productRepo.findByName("Product2").getPrice()).isEqualByComparingTo(BigDecimal.valueOf(221.02));
-
-
-
-
-
-
-
     }
 
 }
